@@ -1,21 +1,52 @@
-import React, { ReactNode } from 'react';
+"use client";
+
+import React, { useEffect } from "react";
 import Navbar from "@/app/(components)/Navbar";
 import Sidebar from "@/app/(components)/Sidebar";
+import StoreProvider, { useAppSelector } from "./redux";
 
+type Props = {};
 
-type Props = {}
+const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
+  const isSidebarCollapsed = useAppSelector(
+    (state) => state.global.isSidebarCollapsed,
+  );
 
-const DashboardWrapper = ({children} : {children: React.ReactNode}) => {
+  const isDarkMode = useAppSelector((state) => state.global.isDarkMode);
+
+  useEffect(() => {
+    if (isDarkMode) {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+  }, [isDarkMode]);
+
+  console.log("Dark Mode is : " + isDarkMode);
+
   return (
-    <div className='flex min-h-screen w-full bg-gray-50 text-gray-900'>
-        {/* Sidebar */}
-        <Sidebar />
-        <main className={`flex w-full flex-col bg-gray-50 dark:bg-dark-bg md:pl-64`}>        
-            <Navbar/>
-            {children}
-        </main>   
+    <div className="flex min-h-screen w-full bg-gray-50 text-gray-900">
+      {/* Sidebar */}
+      <Sidebar />
+      <main
+        className={`flex w-full flex-col bg-gray-50 dark:bg-dark-bg ${
+          isSidebarCollapsed ? "" : "md:pl-64"
+        }`}
+      >
+        <Navbar />
+        {children}
+      </main>
     </div>
   );
 }
 
-export default DashboardWrapper
+const DashboardWrapper = ({ children }: { children: React.ReactNode }) => {
+  return (
+    <StoreProvider>
+      <DashboardLayout>{children}</DashboardLayout>
+    </StoreProvider>
+  );
+};
+
+export default DashboardWrapper ;
+
