@@ -2,8 +2,7 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 *,
-*::before
-*::after{
+*::before *::after {
   box-sizing: border-box;
 }
 
