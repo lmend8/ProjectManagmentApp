@@ -3,7 +3,9 @@ import Header from "@/components/Header";
 import { useGetTasksQuery } from "@/state/api";
 import React from "react";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
-import { dataGridClassNames, dataGridSxStyles } from "@/lib/utils";
+import { dataGridSxStyles } from "@/lib/utils";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { useMemo } from "react";
 
 type Props = {
   id: string;
@@ -65,8 +67,21 @@ const columns: GridColDef[] = [
   },
 ];
 
+
+
+
 const TableView = ({ id, setIsModalNewTaskOpen }: Props) => {
   const isDarkMode = useAppSelector((state) => state.global.isDarkMode);
+  const theme = useMemo(
+    () =>
+      createTheme({
+        palette: {
+          mode: isDarkMode ? "dark" : "light",
+        },
+      }),
+    [isDarkMode]
+  );
+ 
   const {
     data: tasks,
     error,
@@ -81,12 +96,9 @@ const TableView = ({ id, setIsModalNewTaskOpen }: Props) => {
       <div className="pt-5">
         <Header name="Table" isSmallText />
       </div>
-      <DataGrid
-        rows={tasks || []}
-        columns={columns}
-        className={dataGridClassNames}
-        sx={dataGridSxStyles(isDarkMode)}
-      />
+      <ThemeProvider theme={theme}>
+        <DataGrid rows={tasks || []} columns={columns} />
+      </ThemeProvider>
     </div>
   );
 };
