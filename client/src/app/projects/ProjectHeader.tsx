@@ -9,6 +9,7 @@ import {
   Table,
 } from "lucide-react";
 import React, { useState } from "react";
+import ModalNewProject from "./ModalNewProject";
 
 type Props = {
   activeTab: string;
@@ -19,21 +20,22 @@ const ProjectHeader = ({ activeTab, setActiveTab }: Props) => {
   const [isModalNewProjectOpen, setIsModalNewProjectOpen] = useState(false);
   return (
     <div className="px-4 xl:px-6">
-      {/* <ModalNewProject
+      <ModalNewProject
         isOpen={isModalNewProjectOpen}
         onClose={() => setIsModalNewProjectOpen(false)}
-      /> */}
+      />
       <div className="pt-6 pb-6 lg:pt-8 lg:pb-4">
-        <Header name="Product Design Development" />
-        buttonComponent=
-        {
-          <button
-            className="bg-blue-primary flex items-center rounded-md px-3 py-2 text-white hover:bg-blue-600"
-            onClick={() => setIsModalNewProjectOpen(true)}
-          >
-            <PlusSquare className="mr-2 h-5 w-5" /> New Boards
-          </button>
-        }
+        <Header
+          name="Product Design Development"
+          buttonComponent={
+            <button
+              className="flex items-center rounded-md bg-blue-primary px-3 py-2 text-white bg-blue-600"
+              onClick={() => setIsModalNewProjectOpen(true)}
+            >
+              <PlusSquare className="mr-2 h-5 w-5" /> New Boards
+            </button>
+          }
+        />
       </div>
 
       {/**TABS */}
