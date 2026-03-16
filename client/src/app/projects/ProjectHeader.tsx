@@ -1,5 +1,13 @@
 import Header from "@/components/Header";
-import { Clock, Filter, Grid3x3, List, Share2, Table } from "lucide-react";
+import {
+  Clock,
+  Filter,
+  Grid3x3,
+  List,
+  PlusSquare,
+  Share2,
+  Table,
+} from "lucide-react";
 import React, { useState } from "react";
 
 type Props = {
@@ -11,9 +19,21 @@ const ProjectHeader = ({ activeTab, setActiveTab }: Props) => {
   const [isModalNewProjectOpen, setIsModalNewProjectOpen] = useState(false);
   return (
     <div className="px-4 xl:px-6">
-      {/**MODAL NEW PROJECT */}
+      {/* <ModalNewProject
+        isOpen={isModalNewProjectOpen}
+        onClose={() => setIsModalNewProjectOpen(false)}
+      /> */}
       <div className="pt-6 pb-6 lg:pt-8 lg:pb-4">
         <Header name="Product Design Development" />
+        buttonComponent=
+        {
+          <button
+            className="bg-blue-primary flex items-center rounded-md px-3 py-2 text-white hover:bg-blue-600"
+            onClick={() => setIsModalNewProjectOpen(true)}
+          >
+            <PlusSquare className="mr-2 h-5 w-5" /> New Boards
+          </button>
+        }
       </div>
 
       {/**TABS */}
@@ -45,11 +65,11 @@ const ProjectHeader = ({ activeTab, setActiveTab }: Props) => {
             activeTab={activeTab}
           />
         </div>
-        <div className="items-center flex gap-2">
-          <button className=" text-gray-500 hover:text-gray-600 dark:hover:text-gray-300">
+        <div className="flex items-center gap-2">
+          <button className="text-gray-500 hover:text-gray-600 dark:hover:text-gray-300">
             <Filter className="h-5 w-5" />
           </button>
-          <button className=" text-gray-500 hover:text-gray-600 dark:hover:text-gray-300">
+          <button className="text-gray-500 hover:text-gray-600 dark:hover:text-gray-300">
             <Share2 className="h-5 w-5" />
           </button>
           <div className="relative">

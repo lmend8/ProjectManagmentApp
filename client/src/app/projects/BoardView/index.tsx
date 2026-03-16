@@ -82,14 +82,14 @@ const TaskColumn = ({
       ref={(instance) => {
         drop(instance);
       }}
-      className={`sl:py-4 rounded-lg py-2 xl:px-2 ${isOver ? "bg-blue-100 dark:bg-neutral-950" : ""}`}
+      className={`sl:py-4 rounded-lg py-2 xl:px-2 ${isOver ? "bg-blue-100 dark:bg-neutral-900" : ""}`}
     >
       <div className="mb-3 flex w-full">
         <div
           className={`w-2 !bg-[${statusColor[status]}] rounded-s-lg`}
           style={{ backgroundColor: statusColor[status] }}
         />
-        <div className="dark:bg-dark-secondary flex w-full items-center justify-between rounded-e-lg bg-white px-5 py-4">
+        <div className="flex w-full items-center justify-between rounded-e-lg bg-white dark:bg-neutral-800 px-5 py-4">
           <h3 className="flex items-center text-lg font-semibold dark:text-white">
             {status}{" "}
             <span
@@ -150,7 +150,7 @@ const Task = ({ task }: TaskProps) => {
     <div
       className={`rounded-full px-2 py-1 text-xs font-semibold ${
         priority === "Urgent"
-          ? "bg-red-200 text-red-700"
+          ? "bg-red-200 text-red-700 dark:bg-red-900 dark:text-red-200"
           : priority === "High"
             ? "bg-yellow-200 text-yellow-700"
             : priority === "Medium"
@@ -169,7 +169,7 @@ const Task = ({ task }: TaskProps) => {
       ref={(instance) => {
         drag(instance);
       }}
-      className={`dark:bg-dark-secondary mb-4 rounded-md bg-white shadow ${
+      className={`mb-4 rounded-md bg-white dark:bg-neutral-800 shadow ${
         isDragging ? "opacity-50" : "opacity-100"
       }`}
     >
@@ -190,7 +190,7 @@ const Task = ({ task }: TaskProps) => {
               {taskTagsSplit.map((tag) => (
                 <div
                   key={tag}
-                  className="rounded-full bg-blue-100 px-2 py-1 text-xs"
+                  className="rounded-full bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-200 px-2 py-1 text-xs"
                 >
                   {" "}
                   {tag}
@@ -219,7 +219,7 @@ const Task = ({ task }: TaskProps) => {
         <p className="text-xs text-gray-600 dark:text-neutral-500">
           {task.description}
         </p>
-        <div className="border-grey-200 dark:border-stroke-dark mt-4 border-t" />
+        <div className="border-gray-200 dark:border-neutral-700 mt-4 border-t" />
 
         {/** Users */}
         <div className="mt-3 flex items-center justify-between">

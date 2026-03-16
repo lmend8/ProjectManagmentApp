@@ -14,12 +14,12 @@ const ListView = ({ id, setIsModalNewTaskOpen }: Props) => {
     error,
     isLoading,
   } = useGetTasksQuery({ projectId: Number(id) });
-
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading)
+    return <div className="text-gray-800 dark:text-gray-100">Loading...</div>;
   if (error) return <div>An error occurred while fetching tasks</div>;
 
   return (
-    <div className="px-4 pb-8 xl:px-6">
+    <div className="min-h-screen bg-gray-50 px-4 pb-8 xl:px-6 dark:bg-neutral-900">
       <div className="pt-5">
         <Header name="List" />
       </div>

@@ -28,7 +28,7 @@ const columns: GridColDef[] = [
     headerName: "Status",
     width: 130,
     renderCell: (params) => (
-      <span className="inline-flex rounded-full bg-green-100 px-2 text-xs leading-5 font-semibold text-green-800">
+      <span className="inline-flex rounded-full bg-green-100 px-2 text-xs font-semibold text-green-800 dark:bg-green-900 dark:text-green-200">
         {params.value}
       </span>
     ),
@@ -67,9 +67,6 @@ const columns: GridColDef[] = [
   },
 ];
 
-
-
-
 const TableView = ({ id, setIsModalNewTaskOpen }: Props) => {
   const isDarkMode = useAppSelector((state) => state.global.isDarkMode);
   const theme = useMemo(
@@ -79,25 +76,48 @@ const TableView = ({ id, setIsModalNewTaskOpen }: Props) => {
           mode: isDarkMode ? "dark" : "light",
         },
       }),
-    [isDarkMode]
+    [isDarkMode],
   );
- 
+
   const {
     data: tasks,
     error,
     isLoading,
   } = useGetTasksQuery({ projectId: Number(id) });
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading)
+    return <div className="text-gray-600 dark:text-gray-300">Loading...</div>;
   if (error) return <div>An error occurred while fetching tasks</div>;
 
   return (
-    <div className="h-[540px] w-full px-4 pb-8 xl:px-6">
+    <div className="h-[540px] w-full px-4 pb-8 text-gray-800 xl:px-6 dark:text-gray-200">
       <div className="pt-5">
         <Header name="Table" isSmallText />
       </div>
       <ThemeProvider theme={theme}>
-        <DataGrid rows={tasks || []} columns={columns} />
+        <DataGrid
+          rows={tasks || []}
+          columns={columns}
+          sx={{
+            border: "none",
+            color: theme.palette.mode === "dark" ? "#e5e7eb" : "#1f2937",
+            "& .MuiDataGrid-columnHeaders": {
+              backgroundColor:
+                theme.palette.mode === "dark" ? "#1f2937" : "#f9fafb",
+              color: theme.palette.mode === "dark" ? "#f9fafb" : "#111827",
+              borderBottom: "none",
+            },
+            "& .MuiDataGrid-cell": {
+              borderBottom: "1px solid",
+              borderColor:
+                theme.palette.mode === "dark" ? "#374151" : "#e5e7eb",
+            },
+            "& .MuiDataGrid-row:hover": {
+              backgroundColor:
+                theme.palette.mode === "dark" ? "#1f2937" : "#f3f4f6",
+            },
+          }}
+        />
       </ThemeProvider>
     </div>
   );

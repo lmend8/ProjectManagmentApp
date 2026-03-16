@@ -9,18 +9,20 @@ type Props = {
 
 const TaskCard = ({ task }: Props) => {
   return (
-    <div className="dark:bg-dark-secondary mb-3 rounded bg-white p-4 shadow dark:text-white">
+    <div className="mb-3 rounded-lg bg-white dark:bg-neutral-800 p-4 shadow-sm border border-gray-200 dark:border-neutral-700 text-gray-800 dark:text-gray-200">
       {task.attachments && task.attachments.length > 0 && (
-        <div>
-          <strong>Attachments:</strong>
-          <div className="flex flex-wrap">
+        <div className="mb-2">
+          <strong className="text-gray-800 dark:text-gray-100">
+            Attachments:
+          </strong>
+          <div className="flex flex-wrap mt-2">
             {task.attachments && task.attachments.length > 0 && (
               <Image
                 src={`/${task.attachments[0].fileURL}`}
                 alt={task.attachments[0].fileName}
                 width={400}
                 height={200}
-                className="rounded-md"
+                className="rounded-md border border-gray-200 dark:border-neutral-700"
               />
             )}
           </div>

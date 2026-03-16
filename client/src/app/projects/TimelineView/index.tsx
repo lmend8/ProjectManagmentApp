@@ -47,18 +47,25 @@ const Timeline = ({ id, setIsModalNewTaskOpen }: Props) => {
     }));
   };
 
-  if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>An error occurred while fetching tasks</div>;
+  if (isLoading)
+    return <div className="text-gray-600 dark:text-gray-300">Loading...</div>;
+
+  if (error)
+    return (
+      <div className="text-red-600 dark:text-red-400">
+        An error occurred while fetching tasks
+      </div>
+    );
 
   return (
     <div className="px-4 xl:px-6">
       <div className="flex flex-wrap items-center justify-between gap-2 py-5">
-        <h1 className="me-2 text-lg font-bold dark:text-white">
+        <h1 className="me-2 text-lg font-semibold text-gray-900 dark:text-white">
           Project Tasks Timeline
         </h1>
         <div className="relative inline-block w-64">
           <select
-            className="focus:shadow-outline dark:border-dark-secondary dark:bg-dark-secondary block w-full appearance-none rounded border border-gray-400 bg-white px-4 py-2 pr-8 leading-tight shadow hover:border-gray-500 focus:outline-none dark:text-white"
+            className="block w-full appearance-none rounded-md border border-gray-300 bg-white px-4 py-2 pr-8 text-gray-800 shadow-sm hover:border-gray-400 focus:outline-none dark:border-neutral-700 dark:bg-neutral-800 dark:text-gray-200"
             value={displayOptions.viewMode}
             onChange={handleViewModeChange}
           >
@@ -69,20 +76,20 @@ const Timeline = ({ id, setIsModalNewTaskOpen }: Props) => {
         </div>
       </div>
 
-      <div className="dark:bg-dark-secondary overflow-hidden rounded-md bg-white shadow dark:text-white">
-        <div className="timeline">
+      <div className="overflow-hidden rounded-lg bg-white dark:bg-neutral-800 shadow-sm border border-gray-200 dark:border-neutral-700 text-gray-800 dark:text-gray-200">
+        <div className="timeline p-2">
           <Gantt
             tasks={ganttTasks}
             {...displayOptions}
             columnWidth={displayOptions.viewMode === ViewMode.Month ? 150 : 100}
             listCellWidth="100px"
-            barBackgroundColor={isDarkMode ? "#101214" : "#aeb8c2"}
-            barBackgroundSelectedColor={isDarkMode ? "#000" : "#9ba1a6"}
+            barBackgroundColor={isDarkMode ? "#3b82f6" : "#93c5fd"}
+            barBackgroundSelectedColor={isDarkMode ? "#2563eb" : "#60a5fa"}
           />
         </div>
         <div className="px-4 pt-1 pb-5">
           <button
-            className="bg-blue-primary flex items-center rounded px-3 py-2 text-white hover:bg-blue-600"
+            className="flex items-center rounded-md bg-blue-600 px-3 py-2 text-white hover:bg-blue-700 transition-colors"
             onClick={() => setIsModalNewTaskOpen(true)}
           >
             Add New Task
