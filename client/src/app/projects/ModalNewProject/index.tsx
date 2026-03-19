@@ -1,6 +1,7 @@
 import Modal from "@/components/Modal";
 import { useCreateProjectMutation } from "@/state/api";
 import React, { useState } from "react";
+import {formatISO } from "date-fns";
 
 type Props = {
   isOpen: boolean;
@@ -17,11 +18,14 @@ const ModalNewProject = ({ isOpen, onClose }: Props) => {
   const handleSubmit = async () => {
     if (!projectName || !startDate || !endDate) return;
 
+    const formattedStartDate = formatISO(new Date(startDate), { representation: 'complete'})
+    const formattedEndDate = formatISO(new Date(endDate), { representation: 'complete'})
+
     await createProject({
       name: projectName,
       description,
-      startDate,
-      endDate,
+      startDate : formattedStartDate,
+      endDate : formattedEndDate,
     });
   };
 
@@ -30,8 +34,7 @@ const ModalNewProject = ({ isOpen, onClose }: Props) => {
   };
 
   const inputStyles =
-    "w-full rounded border border-gray-300 p-2 shadow-sm dark:border-dark-tertiary dark:bg-dark-tertiary dark:text-white dark:focus:outline-none";
-
+    "w-full rounded border border-gray-300 p-2 shadow-sm bg-white text-gray-900 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:[color-scheme:dark][&::-webkit-calendar-picker-indicator]:invertfocus:outline-none";
   return (
     <Modal isOpen={isOpen} onClose={onClose} name="Create New Project">
       <form
@@ -68,15 +71,17 @@ const ModalNewProject = ({ isOpen, onClose }: Props) => {
             onChange={(e) => setEndDate(e.target.value)}
           />
         </div>
-        <button 
-         type="submit"
-         className={`focus-offset-2 mt-4 flex w-full justify-center rounded-md border border-transparent bg-blue-primary px-4 py-2 text-base font-medium text-white shadow-sm bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-600 ${
-            !isFormValid() || isLoading ? "cursor-not-allowed opacity-50" : ""
+        <button
+          type="submit"
+          className={`mt-4 flex w-full justify-center rounded-md px-4 py-2 text-base font-medium text-white shadow-sm focus:ring-2 focus:ring-blue-600 focus:outline-none ${
+            !isFormValid() || isLoading
+              ? "cursor-not-allowed bg-gray-400"
+              : "bg-blue-600 hover:bg-blue-700"
           }`}
           disabled={!isFormValid() || isLoading}
-          >
-            {isLoading ? "Creating..." : "Create Project"}
-          </button>
+        >
+          {isLoading ? "Creating..." : "Create Project"}
+        </button>
       </form>
     </Modal>
   );

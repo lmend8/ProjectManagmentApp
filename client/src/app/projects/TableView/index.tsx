@@ -92,7 +92,15 @@ const TableView = ({ id, setIsModalNewTaskOpen }: Props) => {
   return (
     <div className="h-[540px] w-full px-4 pb-8 text-gray-800 xl:px-6 dark:text-gray-200">
       <div className="pt-5">
-        <Header name="Table" isSmallText />
+        <Header name="Table"  buttonComponent={
+            <button
+              className="bg-blue-primary flex items-center rounded bg-blue-600 px-3 py-2 text-white"
+              onClick={() => setIsModalNewTaskOpen(true)}
+            >
+              AddTask
+            </button>
+          }
+          isSmallText />
       </div>
       <ThemeProvider theme={theme}>
         <DataGrid
